@@ -2,39 +2,35 @@
 
 from setuptools import setup
 
-DESCRIPTION = """
-This django app intended for writing HTTP log to database
-and/or watch last user activity.
 
-Features:
-  - DB router for writing logs to another database.
-  - Filters for ignoring some queries by URL, HTTP methods and response codes.
-  - Saving anonymous activity as fake user.
-
-More: https://github.com/scailer/django-user-activity-log
-"""
-
+DESCRIPTION = open('README.md').read()
 setup(
-    name='django-user-activity-log',
-    version='0.0.15',
-    author='Dmitriy Vlasov',
-    author_email='scailer@russia.ru',
-
-    include_package_data=True,
+    name='django-activity-log',
+    version='1.0.5',
+    description='HTTP queries logger with flexible filters.',
+    long_description=DESCRIPTION,
+    long_description_content_type="text/markdown",
+    author='Hossein SayyedMousavi',
+    author_email='hossein.sayyedmousavi@gmail.com',
+    keywords=[
+        "django",
+        "database",
+        "user",
+        "activity log"
+    ],
     packages=[
         'activity_log',
         'activity_log.migrations',
     ],
-
-    url='https://github.com/scailer/django-user-activity-log/',
-    license='MIT license',
-    description='HTTP queries logger with flexible filters.',
-    long_description=DESCRIPTION,
-
+    url='https://github.com/HosseinSayyedMousavi',
+    license='MIT License',
+    readme="README.md",
     install_requires=[
+        'django',
     ],
 
-    classifiers=(
+    include_package_data=True,
+    classifiers=[
         'Framework :: Django',
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
@@ -44,6 +40,7 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.8',
         'Topic :: Software Development :: Libraries :: Python Modules'
-    ),
+    ],
 )

@@ -34,16 +34,24 @@ class ActivityLog(models.Model):
     user_id = models.IntegerField(_('user id '))
     user = models.CharField(_('user'), max_length=256)
     request_url = models.CharField(_('url'), max_length=256)
-    request_method = models.CharField(_('http method'), max_length=10)
-    response_code = models.CharField(_('response code'), max_length=3)
-    datetime = models.DateTimeField(_('datetime'), default=timezone.now)
+    request_method = models.CharField(_('http method'), max_length=10, db_index=True)
+    response_code = models.CharField(_('response code'), max_length=3, db_index=True)
+    datetime = models.DateTimeField(_('datetime'), default=timezone.now, db_index=True)
     extra_data = models.TextField(_('extra data'), blank=True, null=True)
-    ip_address = models.GenericIPAddressField(
-        _('user IP'), null=True, blank=True)
+    ip_address = models.GenericIPAddressField(_('user IP'), null=True, blank=True, db_index=True)
+    headers = models.TextField(null=True, blank=True)
+    payload = models.TextField(null=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        if conf.ACTIVITYLOG_MAXIMUM_RECORD_SIZE:
+            while (ActivityLog.objects.count() >= int(conf.ACTIVITYLOG_MAXIMUM_RECORD_SIZE)):
+                    oldest_obj = ActivityLog.objects.order_by('id').first()
+                    oldest_obj.delete()
+
+        if self.ip_address not in conf.EXCLUDE_IP_LIST:
+            super(ActivityLog, self).save(*args, **kwargs)
     class Meta:
         verbose_name = _('activity log')
-
 
 class UserMixin(models.Model):
     last_activity = models.DateTimeField(

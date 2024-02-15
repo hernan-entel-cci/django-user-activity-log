@@ -1,3 +1,9 @@
+# django-activity-log
+
+Forked from : 
+[scailer/django-user-activity-log](https://github.com/scailer/django-user-activity-log)
+__________________________________________________________
+## Owner's Expressions :
 This django app intended for writing HTTP log to database and/or watch last user activity.
 
 Features:
@@ -8,7 +14,14 @@ Features:
 
 Install:
 
-$ pip install django-user-activity-log
+[deprecated]:
+
+$ pip install django-user-activity-log 
+
+[new library]:
+```
+pip install django-activity-log 
+```
 
 settings.py:
 
@@ -81,3 +94,35 @@ $ python manage.py migrate & python manage.py migrate --database=logs
 
 If you use ACTIVITYLOG_AUTOCREATE_DB migrations to logs database 
 will be run automatically.
+
+__________________________________________________________
+## Changelogs of this fork :
+
+#### 1. ```ACTIVITYLOG_MAIN_IP_KEY_VALUE```:
+You can set this string in the settings.py file. When you have a specific CDN or there are changes in headers of requests from the user on the frontend side, this key value takes the highest priority to set the IP address from the headers.
+
+#### 2. ```ACTIVITYLOG_MAXIMUM_RECORD_SIZE```:
+You can set this integer in the settings.py file. 
+This constraint controls the number of saved records by removing the oldest records.
+
+#### 3. ```EXCLUDE_IP_LIST```:
+You can set this list in the settings.py file. 
+This is a list of IP addresses that you do not want to log.
+
+#### 4. ```IP_ADDRESS_HEADERS```:
+I changed the priority to find the IP address better. When you have a CDN, the previous library saves the IP address of the CDN, which is not useful.
+
+#### 5. ```headers```:
+There is a new field in the changelog model that saves headers of requests from the user as a pretty string.
+
+#### 6. ```payload```:
+There is a new field in the changelog model that saves the payload of requests from the user as a pretty string.
+
+#### 7. Test on django version 4.0.1:
+It works well with Django version 4.0.1.
+
+#### 8. change migration files:
+Delete old migrations and create one file to migrate models of this library.
+
+Repository : 
+[HosseinSayyedMousavi/django-user-activity-log](https://github.com/HosseinSayyedMousavi/django-user-activity-log/)
