@@ -29,5 +29,18 @@ class Migration(migrations.Migration):
                 'verbose_name': 'activity log',
             },
         ),
+        migrations.CreateModel(
+            name='BlackListIPAdress',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('ip_address', models.GenericIPAddressField()),
+                ('block_network_address', models.BooleanField(default=False)),
+                ('blocked' , models.BooleanField(default = True))
+            ],
+            options={
+                'verbose_name': 'blocked ip',
+                'verbose_name_plural': 'blocked ips',
+            },
+        ),
     ]
 

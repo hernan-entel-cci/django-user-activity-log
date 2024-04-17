@@ -53,6 +53,7 @@ class ActivityLog(models.Model):
     class Meta:
         verbose_name = _('activity log')
 
+
 class UserMixin(models.Model):
     last_activity = models.DateTimeField(
         _('last activity'), default=timezone.now, editable=False)
@@ -63,3 +64,12 @@ class UserMixin(models.Model):
 
     class Meta:
         abstract = True
+
+
+class BlackListIPAdress(models.Model):
+    ip_address = models.GenericIPAddressField(unique=True)
+    block_network_address = models.BooleanField(default = False)
+    blocked = models.BooleanField(default = True)
+    class Meta:
+        verbose_name = 'blocked ip'
+        verbose_name_plural = 'blocked ips'

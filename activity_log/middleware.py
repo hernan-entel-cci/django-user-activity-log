@@ -11,6 +11,10 @@ from . import conf
 from django.utils.encoding import  force_str
 import json
 import pprintpp
+from .models import BlackListIPAdress
+from django.db.models import Q
+import re 
+
 def get_ip_address(request):
     for header in conf.IP_ADDRESS_HEADERS:
         addr = request.META.get(header)
@@ -83,3 +87,13 @@ class ActivityLogMiddleware(MiddlewareMixin):
             headers = pprintpp.pformat(dict(request.META.items()),indent=4),
             payload =  request.body
         )
+    def __call__(self, request):
+        ip_address = get_ip_address(request)
+        network_address =re.findall(r"([\.\d]+)\.",ip_address)[0]
+        query = Q(block_network_address=True , ip_address__startswith = network_address , blocked = True) | Q(ip_address=ip_address , blocked = True)
+        if BlackListIPAdress.objects.filter(query).exists() :
+            response = HttpResponseForbidden()
+        else: 
+            response = self.get_response(request)
+
+        return response

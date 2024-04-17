@@ -14,4 +14,13 @@ class LogAdmin(admin.ModelAdmin):
     search_fields = ('user', 'request_url')
 
 
+class BlackListAdmin(admin.ModelAdmin):
+    list_display = ('id' , 'ip_address', 'block_network_address','blocked')
+    list_editable = ('ip_address', 'block_network_address','blocked')
+    list_display_links = ('id',)
+    list_filter = ('block_network_address','blocked')
+    search_fields = list_display_links
+
+admin.site.register(models.BlackListIPAdress,BlackListAdmin)
+
 admin.site.register(models.ActivityLog, LogAdmin)
