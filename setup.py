@@ -6,7 +6,7 @@ from setuptools import setup
 DESCRIPTION = open('README.md').read()
 setup(
     name='django-activity-log',
-    version='2.0.1',
+    version='2.0.2',
     description='HTTP queries logger with flexible filters and ip block manager.',
     long_description=DESCRIPTION,
     long_description_content_type="text/markdown",
