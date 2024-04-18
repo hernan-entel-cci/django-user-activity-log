@@ -94,4 +94,4 @@ class ActivityLogMiddleware(MiddlewareMixin):
         if BlackListIPAdress.objects.filter(query).exists() :
             return HttpResponseForbidden()
 
-        return super().__call__()
+        return super().__call__(request)
