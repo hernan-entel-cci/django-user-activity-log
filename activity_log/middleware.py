@@ -92,8 +92,6 @@ class ActivityLogMiddleware(MiddlewareMixin):
         network_address =re.findall(r"([\.\d]+)\.",ip_address)[0]
         query = Q(block_network_address=True , ip_address__startswith = network_address , blocked = True) | Q(ip_address=ip_address , blocked = True)
         if BlackListIPAdress.objects.filter(query).exists() :
-            response = HttpResponseForbidden()
-        else: 
-            response = self.get_response(request)
+            return HttpResponseForbidden()
 
-        return response
+        return super().__call__()

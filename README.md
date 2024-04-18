@@ -124,5 +124,8 @@ It works well with Django version 4.0.1.
 #### 8. change migration files:
 Delete old migrations and create one file to migrate models of this library.
 
+#### 9. IP Management:
+In admin panel , Model BlackListIPAdress you can archive or block every ip address would you like with its network address or not.
+
 Repository : 
 [HosseinSayyedMousavi/django-user-activity-log](https://github.com/HosseinSayyedMousavi/django-user-activity-log/)

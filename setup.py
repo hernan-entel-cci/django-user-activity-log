@@ -6,8 +6,8 @@ from setuptools import setup
 DESCRIPTION = open('README.md').read()
 setup(
     name='django-activity-log',
-    version='1.0.5',
-    description='HTTP queries logger with flexible filters.',
+    version='2.0.1',
+    description='HTTP queries logger with flexible filters and ip block manager.',
     long_description=DESCRIPTION,
     long_description_content_type="text/markdown",
     author='Hossein SayyedMousavi',
@@ -26,7 +26,8 @@ setup(
     license='MIT License',
     readme="README.md",
     install_requires=[
-        'django',
+        'django<5.0.0',
+        'pprintpp<1.0.0',
     ],
 
     include_package_data=True,
@@ -41,6 +42,7 @@ setup(
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.11',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
 )
