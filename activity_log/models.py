@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
 from django.apps import apps
 from django.dispatch import receiver
 from django.db.models.signals import pre_migrate
@@ -12,6 +11,11 @@ from django.db import connection
 from django.core.management import call_command
 from django.conf import settings
 from django.db.utils import ProgrammingError
+
+try:
+    from django.utils.translation import ugettext_lazy as _
+except ImportError:
+    from django.utils.translation import gettext_lazy as _
 
 from . import conf
 
